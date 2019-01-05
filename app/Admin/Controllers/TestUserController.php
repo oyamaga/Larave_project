@@ -10,6 +10,7 @@ use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
 use App\Admin\Extensions\Tools\CsvImport;
+use App\Admin\Extensions\Tools\CsvExport;
 use Goodby\CSV\Import\Standard\Lexer;
 use Goodby\CSV\Import\Standard\Interpreter;
 use Goodby\CSV\Import\Standard\LexerConfig;
@@ -96,6 +97,9 @@ class TestUserController extends Controller
         $grid->tools(function ($tools) {
             $tools->append(new CsvImport());
         });
+        $grid->tools(function ($tools) {
+            $tools->append(new CsvExport());
+        });
 
         return $grid;
     }
@@ -143,17 +147,17 @@ class TestUserController extends Controller
     
         $interpreter = new Interpreter();
         $rows = array();
-
+        // 行の一貫性は無視
+        $interpreter->unstrict();
         $interpreter->addObserver(function (array $row) use (&$rows) {
             $rows[] = $row;
         });
+
 
         // CSVデータをパース
         $lexer->parse($file, $interpreter);
         $data = array();
 
-        dd('ここまで');
- 
         // CSVのデータを配列化
         foreach ($rows as $key => $value) {
 

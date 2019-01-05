@@ -7,7 +7,7 @@ use Encore\Admin\Grid;
 use Encore\Admin\Grid\Tools\AbstractTool;
 use Illuminate\Support\Facades\Request;
 
-class CsvImport extends AbstractTool
+class CsvExport extends AbstractTool
 {
 
 
@@ -19,7 +19,9 @@ class CsvImport extends AbstractTool
         return <<< SCRIPT
 
 // ボタン押下でCSVインポート
-$('.csv-import').click(function() {
+$('.csv-export').click(function() {
+    // 選択行の取得
+    // 選択行
     var select = document.getElementById('files');
     document.getElementById("files").click();
     select.addEventListener('change',function() {
@@ -64,6 +66,6 @@ SCRIPT;
      
             Admin::script($this->script());
 
-            return view('csv_import');
+            return view('csv_export');
     }
 }

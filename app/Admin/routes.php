@@ -12,8 +12,8 @@ Route::group([
 
     $router->get('/', 'HomeController@index');
     $router->resource('auth/users', AdminUserController::class);
-    $router->resource('auth/upload', CsvImport::class);
+    // $router->resource('auth/upload', CsvImport::class);
     // $router->get('auth/users/{user}', 'AdminUserController@form2');
-    $router->post('auth/import', 'TestUserController@csvImport');
+    // $router->post('auth/import', 'TestUserController@csvImport');
     $router->resource('auth/test', TestUserController::class);
 });
